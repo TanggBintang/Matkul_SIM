@@ -1,0 +1,360 @@
+{# seminar/templates/seminar/seminar_page.html #}
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-seminarpage{% endblock %}
+
+{% block content %}
+<style>
+    /* Inline styling for seminar detail page */
+    .seminar-detail-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .seminar-detail-title {
+        color: #333;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 3px solid #43b1b0;
+        display: inline-block;
+    }
+    
+    .seminar-image-container {
+        border-radius: 8px;
+        overflow: hidden;
+        margin-bottom: 25px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .seminar-info-box {
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        border-left: 4px solid #43b1b0;
+        padding: 20px;
+        margin-bottom: 25px;
+        transition: all 0.3s ease;
+    }
+    
+    .seminar-info-box:hover {
+        background-color: #f0f7f7;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    .seminar-info-label {
+        color: #43b1b0;
+        font-weight: 600;
+    }
+    
+    .seminar-quota {
+        background-color: rgba(67, 177, 176, 0.1);
+        padding: 3px 10px;
+        border-radius: 15px;
+        font-weight: 600;
+        color: #43b1b0;
+        display: inline-block;
+    }
+    
+    .seminar-section-title {
+        color: #43b1b0;
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #eaeaea;
+        position: relative;
+    }
+    
+    .seminar-section-title:after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background-color: #43b1b0;
+    }
+    
+    .seminar-description-content {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 25px;
+    }
+    
+    .speaker-card {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        height: 100%;
+        margin-bottom: 20px;
+        overflow: hidden;
+    }
+    
+    .speaker-card:hover {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        transform: translateY(-3px);
+    }
+    
+    .speaker-image-container {
+        background-color: rgba(67, 177, 176, 0.05);
+        padding: 20px 0;
+        text-align: center;
+    }
+    
+    .speaker-image {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+    
+    .speaker-details {
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .speaker-name {
+        color: #43b1b0;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+    
+    .speaker-profession {
+        color: #666;
+        margin-bottom: 15px;
+    }
+    
+    .speaker-topic {
+        background-color: rgba(67, 177, 176, 0.1);
+        padding: 10px;
+        border-radius: 6px;
+    }
+    
+    .registration-form-container {
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        border-left: 4px solid #43b1b0;
+        padding: 20px;
+        margin-bottom: 25px;
+    }
+    
+    .registration-form-title {
+        color: #43b1b0;
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 20px;
+        font-weight: 600;
+        border-bottom: 1px solid #eaeaea;
+        padding-bottom: 10px;
+        position: relative;
+    }
+    
+    .registration-form-title:after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background-color: #43b1b0;
+    }
+    
+    .form-group {
+        margin-bottom: 15px;
+    }
+    
+    .form-label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+        color: #555;
+    }
+    
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 14px;
+    }
+    
+    .form-control:focus {
+        outline: none;
+        border-color: #43b1b0;
+        box-shadow: 0 0 0 3px rgba(67, 177, 176, 0.1);
+    }
+    
+    .btn-register {
+        background-color: #43b1b0;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 10px 20px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+    }
+    
+    .btn-register:hover {
+        background-color: #359e9d;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(67, 177, 176, 0.3);
+    }
+    
+    .registration-note {
+        background-color: rgba(67, 177, 176, 0.05);
+        padding: 15px;
+        border-radius: 6px;
+        text-align: center;
+        margin-top: 15px;
+    }
+    
+    .registration-note-text {
+        margin-bottom: 0;
+        font-weight: 500;
+        color: #43b1b0;
+    }
+    
+    .payment-info-card {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-top: 20px;
+    }
+    
+    .payment-info-title {
+        color: #43b1b0;
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 991px) {
+        .registration-form-container {
+            margin-top: 25px;
+        }
+    }
+    
+    @media (max-width: 767px) {
+        .seminar-section-title {
+            font-size: 20px;
+        }
+        
+        .speaker-card {
+            margin-bottom: 15px;
+        }
+    }
+</style>
+
+<div class="container mt-5 seminar-detail-container">
+    <div class="row">
+        <div class="col-md-8">
+            <h1 class="seminar-detail-title">{{ page.title }}</h1>
+            
+            {% if page.gambar_utama %}
+                {% image page.gambar_utama width-800 as img %}
+                <div class="seminar-image-container">
+                    <img src="{{ img.url }}" class="img-fluid" alt="{{ page.title }}">
+                </div>
+            {% endif %}
+            
+            <div class="seminar-info-box">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><span class="seminar-info-label">Tanggal:</span> {{ page.tanggal }}</p>
+                        <p><span class="seminar-info-label">Waktu:</span> {{ page.waktu_mulai }} - {{ page.waktu_selesai }}</p>
+                        <p style="margin-bottom: 0;"><span class="seminar-info-label">Lokasi:</span> {{ page.lokasi }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><span class="seminar-info-label">Kategori:</span> {{ page.kategori.nama|default:"Umum" }}</p>
+                        <p><span class="seminar-info-label">Harga Tiket:</span> Rp {{ page.harga_tiket }}</p>
+                        <p style="margin-bottom: 0;"><span class="seminar-info-label">Kuota Tersisa:</span> 
+                            <span class="seminar-quota">{{ page.kuota_peserta }}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-4">
+                <h2 class="seminar-section-title">Deskripsi Seminar</h2>
+                <div class="seminar-description-content">
+                    {{ page.deskripsi|richtext }}
+                </div>
+            </div>
+            
+            {% if page.pembicara_seminar.all %}
+                <div class="mb-4">
+                    <h2 class="seminar-section-title">Pembicara</h2>
+                    <div class="row">
+                        {% for pembicara_item in page.pembicara_seminar.all %}
+                            <div class="col-md-4">
+                                <div class="speaker-card">
+                                    <div class="speaker-image-container">
+                                        {% if pembicara_item.pembicara.foto %}
+                                            {% image pembicara_item.pembicara.foto fill-150x150 as speaker_img %}
+                                            <img src="{{ speaker_img.url }}" class="speaker-image" alt="{{ pembicara_item.pembicara.nama }}">
+                                        {% endif %}
+                                    </div>
+                                    <div class="speaker-details">
+                                        <h5 class="speaker-name">{{ pembicara_item.pembicara.nama }}</h5>
+                                        <p class="speaker-profession">{{ pembicara_item.pembicara.profesi }}</p>
+                                        {% if pembicara_item.topik_presentasi %}
+                                            <div class="speaker-topic">
+                                                <p style="margin-bottom: 0;"><strong>Topik:</strong> {{ pembicara_item.topik_presentasi }}</p>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="col-md-4">
+            <div class="registration-form-container">
+                <h3 class="registration-form-title">Daftar Seminar</h3>
+                <form method="post" action="{% url 'seminar_registration' page.id %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="nama" class="form-label">Nama Lengkap</label>
+                        <input type="text" class="form-control" id="nama" name="nama" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telepon" class="form-label">Nomor Telepon</label>
+                        <input type="text" class="form-control" id="telepon" name="telepon" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="institusi" class="form-label">Institusi</label>
+                        <input type="text" class="form-control" id="institusi" name="institusi">
+                    </div>
+                    <button type="submit" class="btn-register">Daftar Sekarang</button>
+                </form>
+                
+                <div class="registration-note">
+                    <p class="registration-note-text">Kuota terbatas! Segera daftarkan diri Anda.</p>
+                </div>
+            </div>
+            
+            {% if page.harga_tiket > 0 %}
+            <div class="payment-info-card">
+                <h5 class="payment-info-title">Informasi Pembayaran</h5>
+                <p>Pembayaran dapat dilakukan melalui transfer bank atau e-wallet.</p>
+                <p style="margin-bottom: 0;">Detail pembayaran akan dikirimkan ke email Anda setelah pendaftaran berhasil.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

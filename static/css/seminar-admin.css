@@ -1,0 +1,38 @@
+.seminar-stats {
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.seminar-stats h3 {
+    color: #43b1b0;
+    margin-top: 0;
+}
+
+.seminar-stats .stats {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.seminar-stats .stats li {
+    margin-bottom: 10px;
+    padding-left: 25px;
+    position: relative;
+}
+
+.seminar-stats .stats li .icon {
+    position: absolute;
+    left: 0;
+    top: 2px;
+}
+
+.seminar-stats .stats li a {
+    color: #333;
+    text-decoration: none;
+}
+
+.seminar-stats .stats li a:hover {
+    color: #43b1b0;
+    text-decoration: underline;
+}

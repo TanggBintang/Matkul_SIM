@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    /* Inline styling for registration success page */
+    .success-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .success-card {
+        background-color: #ffffff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        margin-bottom: 20px;
+    }
+    
+    .success-card:hover {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        transform: translateY(-2px);
+    }
+    
+    .success-header {
+        background-color: #43b1b0;
+        color: white;
+        padding: 15px 20px;
+        border-bottom: none;
+    }
+    
+    .success-header h3 {
+        margin: 0;
+        font-weight: 600;
+    }
+    
+    .success-body {
+        padding: 20px;
+    }
+    
+    .success-thank-you {
+        color: #43b1b0;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+    
+    .success-seminar-title {
+        color: #333;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+    
+    .success-alert {
+        background-color: rgba(67, 177, 176, 0.1);
+        border-left: 4px solid #43b1b0;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+    
+    .registration-code {
+        font-family: monospace;
+        font-size: 18px;
+        padding: 10px;
+        background-color: rgba(67, 177, 176, 0.1);
+        border-radius: 6px;
+        text-align: center;
+        margin: 10px 0;
+    }
+    
+    .seminar-details {
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        padding: 15px;
+        border-left: 4px solid #43b1b0;
+        margin-bottom: 20px;
+    }
+    
+    .seminar-details h5 {
+        color: #43b1b0;
+        border-bottom: 1px solid #eaeaea;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+        position: relative;
+    }
+    
+    .seminar-details h5:after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background-color: #43b1b0;
+    }
+    
+    .detail-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .detail-list li {
+        margin-bottom: 8px;
+        padding-left: 20px;
+        position: relative;
+    }
+    
+    .detail-list li:before {
+        content: '•';
+        color: #43b1b0;
+        position: absolute;
+        left: 0;
+        font-size: 20px;
+        line-height: 20px;
+    }
+    
+    .payment-alert {
+        background-color: rgba(255, 193, 7, 0.1);
+        border-left: 4px solid #ffc107;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+    
+    .payment-alert h5 {
+        color: #d9a600;
+        border-bottom: 1px solid #eaeaea;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+    }
+    
+    .payment-details {
+        background-color: rgba(255, 193, 7, 0.05);
+        padding: 10px;
+        border-radius: 6px;
+        margin: 10px 0;
+    }
+    
+    .payment-details p {
+        margin-bottom: 5px;
+    }
+    
+    .email-info {
+        background-color: #f9f9f9;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+    
+    .email-value {
+        font-weight: 600;
+        color: #43b1b0;
+    }
+    
+    .btn-return {
+        background-color: #43b1b0;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 10px 20px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-block;
+        text-decoration: none;
+    }
+    
+    .btn-return:hover {
+        background-color: #359e9d;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(67, 177, 176, 0.3);
+    }
+</style>
+
+<div class="container mt-5 success-container">
+    <div class="success-card">
+        <div class="success-header">
+            <h3>Pendaftaran Berhasil!</h3>
+        </div>
+        <div class="success-body">
+            <h4 class="success-thank-you">Terima kasih, {{ pendaftaran.nama }}!</h4>
+            <p>Anda telah berhasil mendaftar untuk seminar:</p>
+            <h5 class="success-seminar-title">{{ seminar.title }}</h5>
+            
+            <div class="success-alert">
+                <p><strong>Kode Pendaftaran Anda:</strong></p>
+                <div class="registration-code">{{ pendaftaran.kode_pendaftaran }}</div>
+                <p class="mb-0 mt-2">Simpan kode pendaftaran ini sebagai bukti keikutsertaan Anda.</p>
+            </div>
+            
+            <div class="seminar-details">
+                <h5>Detail Seminar:</h5>
+                <ul class="detail-list">
+                    <li><strong>Tanggal:</strong> {{ seminar.tanggal }}</li>
+                    <li><strong>Waktu:</strong> {{ seminar.waktu_mulai }} - {{ seminar.waktu_selesai }}</li>
+                    <li><strong>Lokasi:</strong> {{ seminar.lokasi }}</li>
+                </ul>
+            </div>
+            
+            {% if seminar.harga_tiket > 0 %}
+            <div class="payment-alert">
+                <h5>Informasi Pembayaran:</h5>
+                <p>Untuk menyelesaikan pendaftaran, silakan lakukan pembayaran sebesar <strong>Rp {{ seminar.harga_tiket }}</strong> ke rekening berikut:</p>
+                <div class="payment-details">
+                    <p><strong>Bank XYZ</strong></p>
+                    <p>No. Rekening: 1234-5678-9012</p>
+                    <p style="margin-bottom: 0;">Atas Nama: PT Seminar Indonesia</p>
+                </div>
+                <p class="mt-3 mb-0">Sertakan kode pendaftaran Anda dalam deskripsi pembayaran.</p>
+            </div>
+            {% endif %}
+            
+            <div class="email-info">
+                <p>Informasi detail tentang seminar akan dikirimkan ke email Anda:</p>
+                <p class="email-value">{{ pendaftaran.email }}</p>
+            </div>
+            
+            <div style="text-align: center;">
+                <a href="{{ seminar.url }}" class="btn-return">Kembali ke Halaman Seminar</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

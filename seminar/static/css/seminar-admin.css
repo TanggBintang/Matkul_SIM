@@ -1,0 +1,272 @@
+/* Admin Dashboard Styling */
+.seminar-stats {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border-left: 4px solid #43b1b0;
+    margin-bottom: 20px;
+}
+
+.seminar-stats:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.seminar-stats h3 {
+    color: #43b1b0;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 600;
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 10px;
+    position: relative;
+}
+
+.seminar-stats h3:after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background-color: #43b1b0;
+}
+
+.seminar-stats .stats {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.seminar-stats .stats li {
+    margin-bottom: 15px;
+    padding-left: 40px;
+    position: relative;
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    border-radius: 6px;
+    padding: 10px 15px 10px 45px;
+    background-color: #f9f9f9;
+    transition: all 0.2s ease;
+}
+
+.seminar-stats .stats li:hover {
+    background-color: #f0f7f7;
+}
+
+.seminar-stats .stats li:last-child {
+    margin-bottom: 0;
+}
+
+.seminar-stats .stats li .icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #43b1b0;
+    color: white;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.seminar-stats .stats li .stats-text {
+    display: block;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.seminar-stats .stats li .stats-value {
+    font-weight: 600;
+    color: #43b1b0;
+    margin-left: auto;
+    background: rgba(67, 177, 176, 0.1);
+    padding: 3px 10px;
+    border-radius: 15px;
+}
+
+/* Override Wagtail icon sizes if needed */
+.seminar-stats .icon:before {
+    font-size: 16px;
+}
+
+/* Fix for specific Wagtail icon fonts */
+.icon-date:before, .icon-user:before, .icon-tick:before {
+    margin-right: 0;
+    vertical-align: middle;
+}
+
+/* Admin Dashboard Cards */
+.admin-dashboard-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.admin-dashboard-card:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 4px;
+    width: 100%;
+    background-color: #43b1b0;
+}
+
+.admin-dashboard-card h4 {
+    margin-top: 0;
+    color: #333;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.admin-dashboard-card .card-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: #43b1b0;
+    margin-bottom: 5px;
+}
+
+.admin-dashboard-card .card-label {
+    color: #666;
+    font-size: 14px;
+}
+
+.admin-dashboard-card .card-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(67, 177, 176, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #43b1b0;
+    font-size: 20px;
+}
+
+/* Status Indicators */
+.status-indicator {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-active {
+    background-color: rgba(40, 167, 69, 0.15);
+    color: #28a745;
+}
+
+.status-upcoming {
+    background-color: rgba(255, 193, 7, 0.15);
+    color: #ffc107;
+}
+
+.status-completed {
+    background-color: rgba(108, 117, 125, 0.15);
+    color: #6c757d;
+}
+
+/* Media query for responsive design */
+@media screen and (max-width: 991px) {
+    .admin-dashboard-card .card-value {
+        font-size: 26px;
+    }
+    
+    .admin-dashboard-card .card-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .seminar-stats {
+        padding: 15px;
+    }
+    
+    .seminar-stats .stats li {
+        padding: 8px 10px 8px 40px;
+    }
+    
+    .seminar-stats .stats li .icon {
+        width: 24px;
+        height: 24px;
+        left: 8px;
+    }
+    
+    .seminar-stats .icon:before {
+        font-size: 14px;
+    }
+    
+    .admin-dashboard-card {
+        padding: 15px;
+    }
+    
+    .admin-dashboard-card .card-value {
+        font-size: 24px;
+    }
+    
+    .admin-dashboard-card .card-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+        top: 15px;
+        right: 15px;
+    }
+}
+
+/* Custom Table Styling */
+.seminar-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.seminar-table thead th {
+    background-color: #43b1b0;
+    color: white;
+    padding: 12px 15px;
+    font-weight: 600;
+    border: none;
+}
+
+.seminar-table tbody tr {
+    background-color: white;
+    transition: all 0.2s ease;
+}
+
+.seminar-table tbody tr:hover {
+    background-color: #f0f7f7;
+}
+
+.seminar-table tbody tr:not(:last-child) {
+    border-bottom: 1px solid #eaeaea;
+}
+
+.seminar-table tbody td {
+    padding: 12px 15px;
+    vertical-align: middle;
+}

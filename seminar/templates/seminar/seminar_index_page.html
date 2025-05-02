@@ -1,0 +1,194 @@
+{# seminar/templates/seminar/seminar_index_page.html #}
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-seminarindexpage{% endblock %}
+
+{% block content %}
+<style>
+    /* Inline styling for Seminar Index Page */
+    .seminar-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .seminar-title {
+        color: #333;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 3px solid #43b1b0;
+        display: inline-block;
+    }
+    
+    .seminar-intro {
+        margin-bottom: 30px;
+    }
+    
+    .seminar-heading {
+        color: #43b1b0;
+        display: inline-block;
+        border-bottom: 3px solid #43b1b0;
+        padding-bottom: 8px;
+        margin-bottom: 20px;
+        position: relative;
+    }
+    
+    .seminar-card {
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        border: none;
+        overflow: hidden;
+        height: 100%;
+        margin-bottom: 25px;
+        background-color: white;
+    }
+    
+    .seminar-card:hover {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        transform: translateY(-3px);
+    }
+    
+    .seminar-card-img {
+        height: 180px;
+        object-fit: cover;
+        width: 100%;
+    }
+    
+    .seminar-card-body {
+        padding: 20px;
+    }
+    
+    .seminar-card-title {
+        color: #43b1b0;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+    
+    .seminar-info-box {
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        border-left: 4px solid #43b1b0;
+        padding: 15px;
+        margin-bottom: 15px;
+        transition: all 0.2s ease;
+    }
+    
+    .seminar-info-box:hover {
+        background-color: #f0f7f7;
+    }
+    
+    .seminar-info-item {
+        margin-bottom: 8px;
+    }
+    
+    .seminar-info-item:last-child {
+        margin-bottom: 0;
+    }
+    
+    .seminar-info-label {
+        color: #43b1b0;
+        font-weight: 600;
+    }
+    
+    .btn-seminar {
+        background-color: #43b1b0;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 8px 15px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-block;
+        text-decoration: none;
+        text-align: center;
+    }
+    
+    .btn-seminar:hover {
+        background-color: #359e9d;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(67, 177, 176, 0.3);
+        color: white;
+        text-decoration: none;
+    }
+    
+    .seminar-empty {
+        background-color: rgba(67, 177, 176, 0.1);
+        border-left: 4px solid #43b1b0;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 991px) {
+        .seminar-card-body {
+            padding: 15px;
+        }
+    }
+    
+    @media (max-width: 767px) {
+        .seminar-card {
+            margin-bottom: 20px;
+        }
+        
+        .seminar-info-box {
+            padding: 12px;
+        }
+    }
+</style>
+
+<div class="container mt-5 seminar-container">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="seminar-title">{{ page.title }}</h1>
+            <div class="seminar-intro">{{ page.intro|richtext }}</div>
+        </div>
+    </div>
+
+    {% if seminar_list %}
+        <div class="row mb-3">
+            <div class="col-12">
+                <h2 class="seminar-heading">Daftar Seminar yang Akan Datang</h2>
+            </div>
+        </div>
+        
+        <div class="row">
+            {% for seminar in seminar_list %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="seminar-card">
+                        {% if seminar.gambar_utama %}
+                            {% image seminar.gambar_utama fill-400x250 as img %}
+                            <img src="{{ img.url }}" class="seminar-card-img" alt="{{ seminar.title }}">
+                        {% endif %}
+                        <div class="seminar-card-body">
+                            <h5 class="seminar-card-title">{{ seminar.title }}</h5>
+                            <div class="seminar-info-box">
+                                <p class="seminar-info-item">
+                                    <span class="seminar-info-label">Tanggal:</span> {{ seminar.tanggal }}
+                                </p>
+                                <p class="seminar-info-item">
+                                    <span class="seminar-info-label">Waktu:</span> {{ seminar.waktu_mulai }} - {{ seminar.waktu_selesai }}
+                                </p>
+                                <p class="seminar-info-item" style="margin-bottom: 0;">
+                                    <span class="seminar-info-label">Lokasi:</span> {{ seminar.lokasi }}
+                                </p>
+                            </div>
+                            
+                            <div style="text-align: center;">
+                                <a href="{% pageurl seminar %}" class="btn-seminar">Lihat Detail</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="seminar-empty">
+            <p style="margin-bottom: 0;">Belum ada seminar yang dijadwalkan.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

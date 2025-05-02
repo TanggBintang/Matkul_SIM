@@ -1,0 +1,19 @@
+{% load wagtailadmin_tags %}
+
+<section class="panel summary seminar-stats">
+    <h3>Statistik Seminar</h3>
+    <ul class="stats">
+        <li>
+            <span class="icon icon-date"></span>
+            <span class="stats-text">{{ upcoming_seminars }} Seminar Akan Datang</span>
+        </li>
+        <li>
+            <span class="icon icon-user"></span>
+            <span class="stats-text">{{ total_registrations }} Total Pendaftaran</span>
+        </li>
+        <li>
+            <span class="icon icon-tick"></span>
+            <span class="stats-text">{{ paid_registrations }} Pembayaran Lunas</span>
+        </li>
+    </ul>
+</section>
