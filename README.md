@@ -9,7 +9,7 @@ Cara Menggunakan
 Instalasi Cepat
 bash# Clone repository
 git clone https://github.com/TanggBintang/Matkul_SIM.git
-cd sistem-manajemen-seminar
+cd Matkul_SIM
 
 # Buat virtual environment
 python -m venv venv
